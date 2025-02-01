@@ -5,10 +5,9 @@ import com.example.planner.dto.PlannerResponseDto;
 import com.example.planner.service.PlannerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/planner")
@@ -24,4 +23,16 @@ public class PlannerController {
 
         return new ResponseEntity<>(plannerService.savePlanner(dto), HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlannerResponseDto> findPlannerById(@PathVariable Long id) {
+        return new ResponseEntity<>(plannerService.findPlannerById(id),HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PlannerResponseDto>> findAllPlanners() {
+        return new ResponseEntity<>(plannerService.findAllPlanners(),HttpStatus.OK);
+    }
+
+
 }
