@@ -30,7 +30,7 @@ public class PlannerServiceImpl implements PlannerService {
     public PlannerResponseDto findPlannerById(Long id) {
         Optional<Planner> optionalPlanner = plannerRepository.findPlannerById(id);
         if (optionalPlanner.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"존재 하지 않는 일정입니다.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재 하지 않는 일정입니다.");
         }
         String writer = plannerRepository.findWriterById(optionalPlanner.get().getUser_id());
         return new PlannerResponseDto(optionalPlanner.get().getId(), optionalPlanner.get().getTask(),
@@ -45,15 +45,15 @@ public class PlannerServiceImpl implements PlannerService {
     @Override
     public PlannerResponseDto updatePlanner(Long id, PlannerRequestDto dto) {
         if (dto.getTask() == null || dto.getUser_id() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "필수 정보가 빠졌습니다.");
         }
         String password = plannerRepository.findPassWordById(id);
         if (!dto.getPassword().equals(password)){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"비밀번호가 틀렸습니다.");
         }
         int updateRow = plannerRepository.updatePlanner(id, dto.getTask(), dto.getUser_id());
         if (updateRow == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 일정입니다.");
         }
 
         Optional<Planner> optionalPlanner = plannerRepository.findPlannerById(id);
@@ -66,17 +66,17 @@ public class PlannerServiceImpl implements PlannerService {
     @Override
     public void deletePlanner(Long id, PlannerRequestDto dto) {
         if (dto.getPassword() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "필수 정보가 빠졌습니다.");
         }
 
         String password = plannerRepository.findPassWordById(id);
         if (!dto.getPassword().equals(password)){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 틀렸습니다.");
         }
 
         int deletedRow = plannerRepository.deletePlanner(id);
         if (deletedRow == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재 하지 않는 일정입니다.");
         }
     }
 }

@@ -39,6 +39,8 @@ public class PlannerController {
         return new ResponseEntity<>(plannerService.findAllPlanners(updated_at, writer),HttpStatus.OK);
     }
 
+
+
     @PutMapping("/{id}")
     public ResponseEntity<PlannerResponseDto> updatePlanner(@PathVariable Long id, @RequestBody PlannerRequestDto dto) {
         return new ResponseEntity<>(plannerService.updatePlanner(id, dto),HttpStatus.OK);
