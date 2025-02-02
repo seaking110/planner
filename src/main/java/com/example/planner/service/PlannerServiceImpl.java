@@ -79,4 +79,9 @@ public class PlannerServiceImpl implements PlannerService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재 하지 않는 일정입니다.");
         }
     }
+
+    @Override
+    public List<PlannerResponseDto> findPlannersByPage(int page_num, int page_size) {
+        return plannerRepository.findPlannersByPage(page_num, page_size);
+    }
 }

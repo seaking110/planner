@@ -39,8 +39,6 @@ public class PlannerController {
         return new ResponseEntity<>(plannerService.findAllPlanners(updated_at, writer),HttpStatus.OK);
     }
 
-
-
     @PutMapping("/{id}")
     public ResponseEntity<PlannerResponseDto> updatePlanner(@PathVariable Long id, @RequestBody PlannerRequestDto dto) {
         return new ResponseEntity<>(plannerService.updatePlanner(id, dto),HttpStatus.OK);
@@ -50,5 +48,13 @@ public class PlannerController {
     public ResponseEntity<Void> deletePlanner(@PathVariable Long id, @RequestBody PlannerRequestDto dto) {
         plannerService.deletePlanner(id, dto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<List<PlannerResponseDto>> findPlannersByPage(
+            @RequestParam int page_num,
+            @RequestParam int page_size
+    ) {
+        return new ResponseEntity<>(plannerService.findPlannersByPage(page_num, page_size),HttpStatus.OK);
     }
 }

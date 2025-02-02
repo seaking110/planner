@@ -21,4 +21,6 @@ public interface PlannerRepository {
     String findPassWordById(Long id);
 
     int deletePlanner(Long id);
+
+    List<PlannerResponseDto> findPlannersByPage(int page_num, int page_size);
 }

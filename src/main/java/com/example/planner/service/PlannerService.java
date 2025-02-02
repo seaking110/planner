@@ -16,4 +16,6 @@ public interface PlannerService {
     PlannerResponseDto updatePlanner(Long id, PlannerRequestDto dto);
 
     void deletePlanner(Long id, PlannerRequestDto dto);
+
+    List<PlannerResponseDto> findPlannersByPage(int page_num, int page_size);
 }

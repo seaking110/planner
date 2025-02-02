@@ -110,6 +110,13 @@ public class JdbcTmplatePlannerRepository implements PlannerRepository{
         return jdbcTemplate.update("delete from planner where id = ? ",id);
     }
 
+    @Override
+    public List<PlannerResponseDto> findPlannersByPage(int page_num, int page_size) {
+        int offset = (page_num - 1) * page_size;
+        return jdbcTemplate.query("SELECT p.id, p.task, u.writer, p.password, p.created_at, p.updated_at FROM planner p JOIN user u ON p.user_id = u.user_id LIMIT ? OFFSET ?"
+                , plannerRowMapper(),page_size, offset);
+    }
+
 
     private RowMapper<PlannerResponseDto> plannerRowMapper() {
         return new RowMapper<PlannerResponseDto>() {
