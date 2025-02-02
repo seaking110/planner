@@ -3,6 +3,7 @@ package com.example.planner.service;
 import com.example.planner.dto.PlannerRequestDto;
 import com.example.planner.dto.PlannerResponseDto;
 
+import java.util.Date;
 import java.util.List;
 
 public interface PlannerService {
@@ -10,5 +11,9 @@ public interface PlannerService {
 
     PlannerResponseDto findPlannerById(Long id);
 
-    List<PlannerResponseDto> findAllPlanners();
+    List<PlannerResponseDto> findAllPlanners(Date updated_at, String writer);
+
+    PlannerResponseDto updatePlanner(Long id, PlannerRequestDto dto);
+
+    void deletePlanner(Long id, PlannerRequestDto dto);
 }

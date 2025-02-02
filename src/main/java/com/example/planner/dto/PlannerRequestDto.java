@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class PlannerRequestDto {
     private String task;
-    private String writer;
+    private Long user_id;
     private String password;
 }

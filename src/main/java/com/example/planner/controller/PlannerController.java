@@ -3,10 +3,12 @@ package com.example.planner.controller;
 import com.example.planner.dto.PlannerRequestDto;
 import com.example.planner.dto.PlannerResponseDto;
 import com.example.planner.service.PlannerService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,9 +32,21 @@ public class PlannerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PlannerResponseDto>> findAllPlanners() {
-        return new ResponseEntity<>(plannerService.findAllPlanners(),HttpStatus.OK);
+    public ResponseEntity<List<PlannerResponseDto>> findAllPlanners(
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date updated_at,
+            @RequestParam(required = false) String writer
+            ) {
+        return new ResponseEntity<>(plannerService.findAllPlanners(updated_at, writer),HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PlannerResponseDto> updatePlanner(@PathVariable Long id, @RequestBody PlannerRequestDto dto) {
+        return new ResponseEntity<>(plannerService.updatePlanner(id, dto),HttpStatus.OK);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePlanner(@PathVariable Long id, @RequestBody PlannerRequestDto dto) {
+        plannerService.deletePlanner(id, dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
