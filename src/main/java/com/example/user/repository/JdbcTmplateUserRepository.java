@@ -22,6 +22,7 @@ public class JdbcTmplateUserRepository implements UserRepository {
     public JdbcTmplateUserRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+    // 유저 정보 저장 메서드
     @Override
     public UserResponseDto savedUser(String writer, String email) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
@@ -37,6 +38,7 @@ public class JdbcTmplateUserRepository implements UserRepository {
         return new UserResponseDto(key.longValue(), writer, email, currentDate, currentDate);
     }
 
+    // 작성자 찾는 메서드
     @Override
     public String findWriterById(Long user_id) {
         String writer;

@@ -11,7 +11,6 @@ import java.util.Optional;
 public interface UserRepository {
     UserResponseDto savedUser(String writer, String email);
 
-
     String findWriterById(Long user_id);
 
 }

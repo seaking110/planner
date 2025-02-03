@@ -1,5 +1,6 @@
 package com.example.user.entity;
 
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

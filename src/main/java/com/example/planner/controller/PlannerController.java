@@ -16,21 +16,25 @@ import java.util.List;
 public class PlannerController {
     private final PlannerService plannerService;
 
+    // 생성자 의존성 주입을 통해 Service와 연결
     public PlannerController(PlannerService plannerService){
         this.plannerService = plannerService;
     }
 
+    // 일정 생성
     @PostMapping
     public ResponseEntity<PlannerResponseDto> createPlanner(@RequestBody @Valid PlannerRequestDto dto){
 
         return new ResponseEntity<>(plannerService.savePlanner(dto), HttpStatus.CREATED);
     }
 
+    // 일정 조회
     @GetMapping("/{id}")
     public ResponseEntity<PlannerResponseDto> findPlannerById(@PathVariable Long id) {
         return new ResponseEntity<>(plannerService.findPlannerById(id),HttpStatus.OK);
     }
 
+    // 모든 일정 조회
     @GetMapping
     public ResponseEntity<List<PlannerResponseDto>> findAllPlanners(
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date updated_at,
@@ -39,17 +43,20 @@ public class PlannerController {
         return new ResponseEntity<>(plannerService.findAllPlanners(updated_at, writer),HttpStatus.OK);
     }
 
+    // 일정 수정
     @PutMapping("/{id}")
     public ResponseEntity<PlannerResponseDto> updatePlanner(@PathVariable Long id, @RequestBody PlannerRequestDto dto) {
         return new ResponseEntity<>(plannerService.updatePlanner(id, dto),HttpStatus.OK);
     }
 
+    //일정 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlanner(@PathVariable Long id, @RequestBody PlannerRequestDto dto) {
         plannerService.deletePlanner(id, dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //일정 페이징 조회
     @GetMapping("/page")
     public ResponseEntity<List<PlannerResponseDto>> findPlannersByPage(
             @RequestParam int page_num,
