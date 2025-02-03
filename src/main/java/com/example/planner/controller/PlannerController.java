@@ -3,11 +3,11 @@ package com.example.planner.controller;
 import com.example.planner.dto.PlannerRequestDto;
 import com.example.planner.dto.PlannerResponseDto;
 import com.example.planner.service.PlannerService;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class PlannerController {
     }
 
     @PostMapping
-    public ResponseEntity<PlannerResponseDto> createPlanner(@RequestBody PlannerRequestDto dto){
+    public ResponseEntity<PlannerResponseDto> createPlanner(@RequestBody @Valid PlannerRequestDto dto){
 
         return new ResponseEntity<>(plannerService.savePlanner(dto), HttpStatus.CREATED);
     }
