@@ -16,13 +16,13 @@
 
 | 기능             | HTTP 메서드 | 엔드포인트             | 요청 파라미터               | 응답 타입  | 상태 코드         |
 |------------------|-------------|------------------------|----------------------------|-----------|-------------------|
-| 일정 등록        | POST        | `/planner`             | task, user_id, password    | 등록된 일정 정보 | 200: 정상 등록   |
+| 일정 등록        | POST        | `/planner`             | task, user_id, password    | 등록된 일정 정보 | 201: 정상 등록   |
 | 일정 조회        | GET         | `/planner/{id}`        | id (일정 ID)               | 일정 정보 | 200: 정상 조회   |
 | 모든 일정 조회   | GET         | `/planner`             | updated_at, writer         | 일정 목록 | 200: 정상 조회   |
 | 일정 수정        | PUT         | `/planner/{id}`        | task, user_id, password    | 수정된 일정 정보 | 200: 정상 수정   |
 | 일정 삭제        | DELETE      | `/planner/{id}`        | id (일정 ID)               | -         | 200: 정상 삭제   |
 | 일정 페이징 조회 | GET         | `/planner/page`        | page_num, page_size        | 일정 목록 | 200: 정상 조회   |
-| 유저 등록        | POST        | `/user`                | wirter, email              | 등록된 유저 정보 | 200: 정상 등록   |
+| 유저 등록        | POST        | `/user`                | wirter, email              | 등록된 유저 정보 | 201: 정상 등록   |
 ---
 
 ## ERD (Entity Relationship Diagram)
