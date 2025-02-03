@@ -27,8 +27,8 @@
 
 ## ERD (Entity Relationship Diagram)
 
-![ERD](https://example.com/erd-image.png)  
-(ERD 이미지를 여기에 추가하세요)
+![ERD](https://github.com/user-attachments/assets/6790efd0-f58e-448a-a82c-ad0553dfc9ee)  
+
 
 ---
 
