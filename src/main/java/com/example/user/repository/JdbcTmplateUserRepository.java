@@ -1,9 +1,7 @@
 package com.example.user.repository;
 
-import com.example.planner.dto.PlannerResponseDto;
-import com.example.planner.entity.Planner;
 import com.example.user.dto.UserResponseDto;
-import org.springframework.dao.EmptyResultDataAccessException;
+import com.example.user.entity.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -40,17 +38,22 @@ public class JdbcTmplateUserRepository implements UserRepository {
 
     // 작성자 찾는 메서드
     @Override
-    public String findWriterById(Long user_id) {
-        String writer;
-        try {
-            writer = jdbcTemplate.queryForObject(
-                    "SELECT writer FROM user WHERE user_id = ?",
-                    new Object[]{user_id},
-                    String.class
-            );
-        } catch (EmptyResultDataAccessException e) {
-            throw new IllegalArgumentException("존재하지 않는 유저 아이디 입니다 : " + user_id);
-        }
-        return writer;
+    public Optional<User> findById(Long userId) {
+        List<User> result = jdbcTemplate.query("select * from user where user_id = ?", userRowMapper(),userId);
+        return result.stream().findAny();
+    }
+
+    private RowMapper<User> userRowMapper() {
+        return new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new User(rs.getLong("user_id"),
+                        rs.getString("writer"),
+                        rs.getString("email"),
+                        rs.getDate("created_at"),
+                        rs.getDate("updated_at")
+                );
+            }
+        };
     }
 }
